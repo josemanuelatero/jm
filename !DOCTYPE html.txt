@@ -35,6 +35,13 @@
             padding: 20px;
             text-align: center;
         }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
         footer {
             background-color: #4CAF50;
             color: white;
@@ -66,6 +73,8 @@
         <section id="proyectos">
             <h2>Proyectos</h2>
             <p>Aquí puedes encontrar algunos de mis proyectos destacados.</p>
+            <img src="https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" 
+                 alt="Edificio moderno">
         </section>
 
         <section id="contacto">
