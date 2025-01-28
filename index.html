@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nombre Centrado</title>
+    <title>Nombre Centrado con Efecto</title>
     <style>
         body {
             display: flex;
@@ -13,8 +13,27 @@
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
-            background-color: #fff;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
         }
+
+        /* Fondo con degradado dinámico */
+        body::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 80%);
+            pointer-events: none;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Campo principal */
         input {
             font-size: 24px;
             font-weight: bold; /* Negrita para el título principal */
@@ -23,6 +42,8 @@
             text-align: center;
             margin-bottom: 20px;
         }
+
+        /* Palabras CV y Proyectos */
         p {
             margin: 5px 0;
             font-size: 10px; /* Tamaño pequeño para CV y Proyectos */
@@ -35,5 +56,48 @@
     <input type="text" value="josemanuelatero" readonly>
     <p>CV</p>
     <p>Proyectos</p>
+
+    <script>
+        const body = document.body;
+        const spotlight = document.createElement('div');
+
+        // Crear el degradado dinámico
+        spotlight.style.position = 'absolute';
+        spotlight.style.width = '200px';
+        spotlight.style.height = '200px';
+        spotlight.style.background = 'radial-gradient(circle, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 80%)';
+        spotlight.style.pointerEvents = 'none';
+        spotlight.style.borderRadius = '50%';
+        spotlight.style.transform = 'translate(-50%, -50%) scale(0)';
+        spotlight.style.transition = 'transform 0.1s ease-out';
+        body.appendChild(spotlight);
+
+        // Detectar el movimiento del ratón
+        document.addEventListener('mousemove', (event) => {
+            const x = event.clientX;
+            const y = event.clientY;
+            spotlight.style.left = `${x}px`;
+            spotlight.style.top = `${y}px`;
+            spotlight.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        // Detectar el toque en pantallas táctiles
+        document.addEventListener('touchmove', (event) => {
+            const touch = event.touches[0];
+            const x = touch.clientX;
+            const y = touch.clientY;
+            spotlight.style.left = `${x}px`;
+            spotlight.style.top = `${y}px`;
+            spotlight.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        // Ocultar el efecto al quitar el ratón o terminar el toque
+        document.addEventListener('mouseleave', () => {
+            spotlight.style.transform = 'translate(-50%, -50%) scale(0)';
+        });
+        document.addEventListener('touchend', () => {
+            spotlight.style.transform = 'translate(-50%, -50%) scale(0)';
+        });
+    </script>
 </body>
 </html>
