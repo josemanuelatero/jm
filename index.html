@@ -35,6 +35,19 @@
             font-weight: normal; /* Sin negrita */
             text-decoration: underline; /* Subrayado */
         }
+
+        /* Círculo de efecto */
+        .circle {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 2px solid black; /* Borde negro fino */
+            border-radius: 50%; /* Forma de círculo */
+            pointer-events: none; /* No interfiere con los eventos del mouse */
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.1s ease-out;
+            background: transparent; /* Fondo transparente */
+        }
     </style>
 </head>
 <body>
@@ -42,47 +55,42 @@
     <p>CV</p>
     <p>Carpeta</p>
 
+    <div id="circle" class="circle"></div>
+
     <script>
-        const body = document.body;
-        const spotlight = document.createElement('div');
+        const circle = document.getElementById('circle');
 
-        // Crear el degradado dinámico (centro oscuro, bordes claros)
-        spotlight.style.position = 'absolute';
-        spotlight.style.width = '300px';
-        spotlight.style.height = '300px';
-        spotlight.style.background = 'radial-gradient(circle, rgba(0, 0, 0, 0.5) 0%, rgba(255, 255, 255, 0) 100%)';
-        spotlight.style.pointerEvents = 'none';
-        spotlight.style.borderRadius = '50%';
-        spotlight.style.transform = 'translate(-50%, -50%) scale(0)';
-        spotlight.style.transition = 'transform 0.1s ease-out';
-        body.appendChild(spotlight);
+        // Función para mostrar el círculo en la posición del ratón o del toque
+        function showCircle(x, y) {
+            circle.style.left = `${x}px`;
+            circle.style.top = `${y}px`;
+            circle.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
 
-        // Detectar el movimiento del ratón
-        document.addEventListener('mousemove', (event) => {
-            const x = event.clientX;
-            const y = event.clientY;
-            spotlight.style.left = `${x}px`;
-            spotlight.style.top = `${y}px`;
-            spotlight.style.transform = 'translate(-50%, -50%) scale(1)';
+        // Función para ocultar el círculo
+        function hideCircle() {
+            circle.style.transform = 'translate(-50%, -50%) scale(0)';
+        }
+
+        // Detectar clic con el ratón
+        document.addEventListener('mousedown', (event) => {
+            showCircle(event.clientX, event.clientY);
         });
 
-        // Detectar el toque en pantallas táctiles
-        document.addEventListener('touchmove', (event) => {
+        document.addEventListener('mouseup', () => {
+            hideCircle();
+        });
+
+        // Detectar toque en pantallas táctiles
+        document.addEventListener('touchstart', (event) => {
             const touch = event.touches[0];
-            const x = touch.clientX;
-            const y = touch.clientY;
-            spotlight.style.left = `${x}px`;
-            spotlight.style.top = `${y}px`;
-            spotlight.style.transform = 'translate(-50%, -50%) scale(1)';
+            showCircle(touch.clientX, touch.clientY);
         });
 
-        // Ocultar el efecto al quitar el ratón o terminar el toque
-        document.addEventListener('mouseleave', () => {
-            spotlight.style.transform = 'translate(-50%, -50%) scale(0)';
-        });
         document.addEventListener('touchend', () => {
-            spotlight.style.transform = 'translate(-50%, -50%) scale(0)';
+            hideCircle();
         });
     </script>
 </body>
 </html>
+
