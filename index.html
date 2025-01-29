@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>josemanuelatero</title> <!-- Título cambiado -->
+    <title>josemanuelatero</title>
     <style>
         /* Estilo general */
         body {
@@ -24,32 +24,37 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 200vh; /* Más alto que la pantalla para el efecto */
+            height: 200vh;
             background: linear-gradient(to bottom, white, black);
             transform: translateY(0);
             transition: transform 0.1s ease-out;
-            z-index: -1; /* Colocado detrás del contenido */
+            z-index: -1;
         }
 
         /* Campo principal */
         input {
             font-size: 24px;
-            font-weight: bold; /* Negrita para el título principal */
+            font-weight: bold;
             border: none;
             outline: none;
             text-align: center;
             margin-bottom: 20px;
             background: transparent;
-            color: white; /* Asegurar que el texto es visible en el fondo */
+            color: white;
         }
 
         /* Palabras CV y Carpeta */
         p {
             margin: 5px 0;
-            font-size: 10px; /* Tamaño pequeño para CV y Carpeta */
-            font-weight: normal; /* Sin negrita */
-            text-decoration: underline; /* Subrayado */
-            color: white; /* Texto visible en el fondo */
+            font-size: 10px;
+            font-weight: normal;
+            text-decoration: underline;
+            color: white;
+            cursor: pointer;
+        }
+
+        p:hover {
+            opacity: 0.7;
         }
 
         /* Círculo de efecto */
@@ -57,12 +62,12 @@
             position: absolute;
             width: 150px;
             height: 150px;
-            border: 2px solid black; /* Borde negro fino */
-            border-radius: 50%; /* Forma de círculo */
-            pointer-events: none; /* No interfiere con los eventos del mouse */
+            border: 2px solid black;
+            border-radius: 50%;
+            pointer-events: none;
             transform: translate(-50%, -50%) scale(0);
             transition: transform 0.1s ease-out;
-            background: transparent; /* Fondo transparente */
+            background: transparent;
         }
     </style>
 </head>
@@ -70,7 +75,7 @@
     <div class="background"></div> <!-- Fondo degradado -->
     
     <input type="text" value="josemanuelatero" readonly>
-    <p>CV</p>
+    <p onclick="window.location.href='cv.html'">CV</p> <!-- Enlace a la página CV -->
     <p>Carpeta</p>
 
     <div id="circle" class="circle"></div>
@@ -79,19 +84,16 @@
         const circle = document.getElementById('circle');
         const background = document.querySelector('.background');
 
-        // Función para mostrar el círculo en la posición del ratón o del toque
         function showCircle(x, y) {
             circle.style.left = `${x}px`;
             circle.style.top = `${y}px`;
             circle.style.transform = 'translate(-50%, -50%) scale(1)';
         }
 
-        // Función para ocultar el círculo
         function hideCircle() {
             circle.style.transform = 'translate(-50%, -50%) scale(0)';
         }
 
-        // Detectar clic con el ratón
         document.addEventListener('mousedown', (event) => {
             showCircle(event.clientX, event.clientY);
         });
@@ -100,7 +102,6 @@
             hideCircle();
         });
 
-        // Detectar toque en pantallas táctiles
         document.addEventListener('touchstart', (event) => {
             const touch = event.touches[0];
             showCircle(touch.clientX, touch.clientY);
@@ -110,13 +111,11 @@
             hideCircle();
         });
 
-        // Efecto Parallax en el fondo al mover el ratón
         document.addEventListener('mousemove', (event) => {
-            const move = (event.clientY / window.innerHeight) * 50; // Movimiento más sutil
+            const move = (event.clientY / window.innerHeight) * 50;
             background.style.transform = `translateY(${move}px)`;
         });
 
-        // También aplicamos efecto parallax en móviles
         document.addEventListener('touchmove', (event) => {
             const touch = event.touches[0];
             const move = (touch.clientY / window.innerHeight) * 50;
@@ -125,3 +124,4 @@
     </script>
 </body>
 </html>
+

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - josemanuelatero</title>
+    <style>
+        /* Estilo general */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Fondo con degradado y efecto parallax */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 200vh;
+            background: linear-gradient(to bottom, white, black);
+            transform: translateY(0);
+            transition: transform 0.1s ease-out;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div> <!-- Fondo degradado -->
+
+    <script>
+        const background = document.querySelector('.background');
+
+        document.addEventListener('mousemove', (event) => {
+            const move = (event.clientY / window.innerHeight) * 50;
+            background.style.transform = `translateY(${move}px)`;
+        });
+
+        document.addEventListener('touchmove', (event) => {
+            const touch = event.touches[0];
+            const move = (touch.clientY / window.innerHeight) * 50;
+            background.style.transform = `translateY(${move}px)`;
+        });
+    </script>
+</body>
+</html>
