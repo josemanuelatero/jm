@@ -16,7 +16,7 @@
             font-family: Arial, sans-serif;
             overflow: hidden;
             position: relative;
-            background: linear-gradient(to bottom, black, white);
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, rgba(50, 50, 50, 1) 80%);
             transition: background 0.2s ease-out;
         }
 
@@ -54,9 +54,10 @@
 
     <script>
         function updateBackground(event) {
+            let x = event.clientX || event.touches[0].clientX;
             let y = event.clientY || event.touches[0].clientY;
-            let gradientPercentage = (y / window.innerHeight) * 100;
-            document.body.style.background = `linear-gradient(to bottom, black ${gradientPercentage}%, white 100%)`;
+            let size = 200; // Tamaño del área clara
+            document.body.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.4) 0%, rgba(50, 50, 50, 1) 80%)`;
         }
 
         document.addEventListener('mousemove', updateBackground);
