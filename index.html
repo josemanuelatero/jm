@@ -75,7 +75,7 @@
     <div class="background"></div> <!-- Fondo degradado -->
     
     <input type="text" value="josemanuelatero" readonly>
-    <p onclick="window.location.href='cv.html'">CV</p> <!-- Enlace a la página CV -->
+    <p id="cvButton">CV</p>  <!-- Botón que llevará a la nueva página -->
     <p>Carpeta</p>
 
     <div id="circle" class="circle"></div>
@@ -83,6 +83,7 @@
     <script>
         const circle = document.getElementById('circle');
         const background = document.querySelector('.background');
+        const cvButton = document.getElementById('cvButton');
 
         function showCircle(x, y) {
             circle.style.left = `${x}px`;
@@ -121,7 +122,14 @@
             const move = (touch.clientY / window.innerHeight) * 50;
             background.style.transform = `translateY(${move}px)`;
         });
+
+        // Función para cambiar de página en clic y en pantallas táctiles
+        function goToCVPage() {
+            window.location.href = 'cv.html';
+        }
+
+        cvButton.addEventListener('click', goToCVPage);
+        cvButton.addEventListener('touchstart', goToCVPage); // Funciona en móviles
     </script>
 </body>
 </html>
-
