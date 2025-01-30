@@ -37,15 +37,15 @@
         canvas.height = window.innerHeight;
 
         let particles = [];
-        const particleCount = 400;
-        const maxDistance = 200;
+        const particleCount = 250;
+        const maxDistance = 150;
 
         class Particle {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.speedX = (Math.random() * 0.4 - 0.2);
-                this.speedY = (Math.random() * 0.4 - 0.2);
+                this.speedX = (Math.random() * 0.3 - 0.15);
+                this.speedY = (Math.random() * 0.3 - 0.15);
             }
 
             update() {

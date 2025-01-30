@@ -44,15 +44,15 @@
         canvas.height = window.innerHeight;
 
         let particles = [];
-        const particleCount = 400; // Disminuimos el número de partículas
-        const maxDistance = 200; 
+        const particleCount = 250;
+        const maxDistance = 150;
 
         class Particle {
             constructor(x, y) {
                 this.x = x;
                 this.y = y;
-                this.speedX = (Math.random() * 0.4 - 0.2); // Aumentamos la velocidad
-                this.speedY = (Math.random() * 0.4 - 0.2);
+                this.speedX = (Math.random() * 0.3 - 0.15);
+                this.speedY = (Math.random() * 0.3 - 0.15);
             }
 
             update() {
@@ -72,7 +72,7 @@
 
                     if (distance < maxDistance) {
                         let opacity = 1 - distance / maxDistance;
-                        ctx.strokeStyle = `rgba(100, 0, 0, ${opacity})`; // Oscurecemos el rojo
+                        ctx.strokeStyle = `rgba(139, 0, 0, ${opacity})`;
                         ctx.lineWidth = 0.6;
                         ctx.beginPath();
                         ctx.moveTo(particles[i].x, particles[i].y);
@@ -121,5 +121,3 @@
     </script>
 </body>
 </html>
-
-
