@@ -5,72 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>josemanuelatero</title>
     <style>
-        /* Estilo general */
         body {
+            margin: 0;
+            overflow: hidden;
+            background: #0e0e0e;
+            color: white;
+            font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            overflow: hidden;
             position: relative;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.3) 0%, rgba(50, 50, 50, 1) 80%);
-            transition: background 0.2s ease-out;
         }
-
-        /* Campo principal */
-        input {
-            font-size: 24px;
-            font-weight: bold;
-            border: none;
-            outline: none;
-            text-align: center;
-            margin-bottom: 20px;
-            background: transparent;
-            color: black;
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
         }
-
-        /* Palabras CV y Carpeta */
-        p {
-            margin: 5px 0;
-            font-size: 10px;
-            font-weight: normal;
-            text-decoration: underline;
-            color: black;
-            cursor: pointer;
-        }
-
-        p:hover {
-            opacity: 0.7;
+        h1, p {
+            position: relative;
+            z-index: 1;
         }
     </style>
 </head>
 <body>
-    <input type="text" value="josemanuelatero" readonly>
+    <h1>josemanuelatero</h1>
     <p id="cvButton">CV</p>
     <p>Carpeta</p>
-
+    <canvas id="backgroundCanvas"></canvas>
     <script>
-        function updateBackground(event) {
-            let x = event.clientX || event.touches[0].clientX;
-            let y = event.clientY || event.touches[0].clientY;
-            let size = 200; // Tamaño del área clara
-            document.body.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255, 255, 255, 0.4) 0%, rgba(50, 50, 50, 1) 80%)`;
+        const canvas = document.getElementById('backgroundCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particles = [];
+        const particleCount = 400; // Disminuimos el número de partículas
+        const maxDistance = 200; 
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.speedX = (Math.random() * 0.4 - 0.2); // Aumentamos la velocidad
+                this.speedY = (Math.random() * 0.4 - 0.2);
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
         }
 
-        document.addEventListener('mousemove', updateBackground);
-        document.addEventListener('touchmove', updateBackground);
+        function drawLines(mouseX, mouseY) {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    let dx = particles[i].x - particles[j].x;
+                    let dy = particles[i].y - particles[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
 
-        document.getElementById('cvButton').addEventListener('click', () => {
-            window.location.href = 'cv.html';
+                    if (distance < maxDistance) {
+                        let opacity = 1 - distance / maxDistance;
+                        ctx.strokeStyle = `rgba(100, 0, 0, ${opacity})`; // Oscurecemos el rojo
+                        ctx.lineWidth = 0.6;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function createParticles() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
+            }
+        }
+
+        function animateParticles(mouseX = null, mouseY = null) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawLines(mouseX, mouseY);
+            particles.forEach(particle => particle.update());
+            requestAnimationFrame(() => animateParticles(mouseX, mouseY));
+        }
+
+        createParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            createParticles();
         });
 
-        document.getElementById('cvButton').addEventListener('touchstart', () => {
+        document.addEventListener('mousemove', (event) => {
+            animateParticles(event.clientX, event.clientY);
+        });
+
+        document.addEventListener('touchmove', (event) => {
+            let touch = event.touches[0];
+            animateParticles(touch.clientX, touch.clientY);
+        });
+
+        document.getElementById('cvButton').addEventListener('click', () => {
             window.location.href = 'cv.html';
         });
     </script>
 </body>
 </html>
+
 
