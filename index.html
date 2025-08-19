@@ -21,7 +21,6 @@
       height: 100vh;
       position: relative;
       overflow: hidden;
-      transition: background-color 0.3s ease;
     }
 
     .square {
@@ -29,7 +28,6 @@
       width: calc(var(--square-size) * 1px);
       height: calc(var(--square-size) * 1px);
       background: black;
-      transition: left 0.3s ease, top 0.3s ease, background-color 0.2s linear;
     }
 
     h1, p {
@@ -46,113 +44,83 @@
   <p>Carpeta</p>
 
   <div id="square1" class="square"></div>
+  <div id="square2" class="square"></div>
 
   <script>
-    // Colores: negro, azul, rojo sangre
     const colors = ['#000000', '#0047FF', '#8B0000'];
     const step = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--step'));
     const size = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--square-size'));
 
-    function createSquare(id, startX, startY, dirX, dirY, interval, colorOffset = 0) {
-      const sq = document.createElement("div");
-      sq.id = id;
-      sq.className = "square";
-      document.body.appendChild(sq);
-      sq.style.left = startX + "px";
-      sq.style.top = startY + "px";
+    function createSquare(el, startX, startY, dirX, dirY, colorIndex) {
       return {
-        el: sq,
+        el: el,
         x: startX,
         y: startY,
         dirX: dirX,
         dirY: dirY,
-        interval: interval,
-        timer: null,
-        colorIndex: colorOffset % colors.length
+        colorIndex: colorIndex
       };
     }
 
-    // Cuadrado 1: izquierda -> derecha, sube en Y (cada 1s), color fijo inicial negro
-    let square1 = {
-      el: document.getElementById("square1"),
-      x: 0,
-      y: window.innerHeight - size,
-      dirX: 1,
-      dirY: -1,
-      interval: 1000,
-      timer: null,
-      colorIndex: 0
-    };
-    let squares = [square1];
+    // Cuadrado 1: izquierda → derecha, sube
+    const square1 = createSquare(
+      document.getElementById("square1"),
+      0, Math.max(0, window.innerHeight - size), 1, -1, 0
+    );
+
+    // Cuadrado 2: derecha → izquierda, baja
+    const square2 = createSquare(
+      document.getElementById("square2"),
+      Math.max(0, window.innerWidth - size), 0, -1, 1, 1
+    );
+
+    const squares = [square1, square2];
 
     function tick(square) {
-      const maxX = window.innerWidth - size;
-      const maxY = window.innerHeight - size;
+      const maxX = Math.max(0, window.innerWidth - size);
+      const maxY = Math.max(0, window.innerHeight - size);
 
-      // Avanzar en X
+      // Avanzar en X en pasos de 20px
       square.x += step * square.dirX;
 
-      // Cambiar color sincronizado con su salto
+      // Cambiar color en cada movimiento
       square.colorIndex = (square.colorIndex + 1) % colors.length;
       square.el.style.backgroundColor = colors[square.colorIndex];
 
-      // Lógica de cuadrado 1 (dirX = 1, dirY = -1): sube en Y al tocar el borde derecho
-      if (square.dirX === 1 && square.x >= maxX) {
-        square.x = maxX;
-        square.y += step * square.dirY; // sube
-        if (square.y < 0) {
-          square.y = maxY; // reaparece abajo
-          square.x = 0;    // vuelve a empezar desde la izquierda
-        }
+      // Rebotar en laterales
+      if (square.x <= 0 || square.x >= maxX) {
+        square.x = square.x <= 0 ? 0 : maxX;
+        square.dirX *= -1; // invierte sentido X
+
+        // Mover 20px en Y (arriba o abajo según dirY)
+        square.y += step * square.dirY;
+
+        // Limitar a pantalla
+        if (square.y < 0) square.y = 0;
+        if (square.y > maxY) square.y = maxY;
       }
 
-      // Lógica de cuadrado 2 (dirX = -1, dirY = 1): baja en Y al tocar el borde izquierdo
-      if (square.dirX === -1 && square.x <= 0) {
-        square.x = 0;
-        square.y += step * square.dirY; // baja
-        if (square.y > maxY) {
-          square.y = 0;    // reaparece arriba
-          square.x = maxX; // vuelve a empezar desde la derecha
-        }
-      }
-
+      // Aplicar posiciones
       square.el.style.left = square.x + "px";
       square.el.style.top  = square.y + "px";
     }
 
-    // Click: cambia fondo 1s y crea segundo cuadrado (si no existe) con desfase de color fijo
-    function handleClick(event) {
-      const sq = event.target;
-      const color = sq.style.backgroundColor || "#000";
-      document.body.style.backgroundColor = color;
-      setTimeout(() => { document.body.style.backgroundColor = "white"; }, 1000);
+    // Posiciones y color inicial
+    squares.forEach(sq => {
+      sq.el.style.left = sq.x + "px";
+      sq.el.style.top  = sq.y + "px";
+      sq.el.style.backgroundColor = colors[sq.colorIndex];
+    });
 
-      if (squares.length < 2) {
-        // Segundo cuadrado: derecha -> izquierda, baja en Y, el doble de rápido (0.5s),
-        // empieza con desfase de color fijo (índice +1 → azul)
-        const newSq = createSquare("square2", window.innerWidth - size, 0, -1, 1, 500, (square1.colorIndex + 1));
-        newSq.el.style.backgroundColor = colors[newSq.colorIndex];
-        newSq.el.addEventListener("click", handleClick);
-        squares.push(newSq);
-        newSq.timer = setInterval(() => tick(newSq), newSq.interval);
-      }
-    }
+    // Animación: ambos cada 1s
+    setInterval(() => {
+      squares.forEach(sq => tick(sq));
+    }, 1000);
 
-    // Eventos
-    square1.el.addEventListener("click", handleClick);
-
-    // Inicializar posiciones y color inicial del cuadrado 1
-    square1.el.style.left = square1.x + "px";
-    square1.el.style.top  = square1.y + "px";
-    square1.el.style.backgroundColor = colors[square1.colorIndex];
-
-    // Movimiento cuadrado 1 (cada 1s)
-    square1.timer = setInterval(() => tick(square1), square1.interval);
-
-    // Adaptación a resize
+    // Adaptar a resize
     window.addEventListener("resize", () => {
-      const maxX = window.innerWidth - size;
-      const maxY = window.innerHeight - size;
+      const maxX = Math.max(0, window.innerWidth - size);
+      const maxY = Math.max(0, window.innerHeight - size);
       squares.forEach(sq => {
         if (sq.x > maxX) sq.x = maxX;
         if (sq.y > maxY) sq.y = maxY;
