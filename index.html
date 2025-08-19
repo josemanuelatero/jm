@@ -1,43 +1,165 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>josemanuelatero</title>
-    <style>
-        body {
-            margin: 0;
-            background: white;
-            color: black;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        h1, p {
-            transition: font-weight 0.2s;
-        }
-        p:hover {
-            font-weight: bold;
-        }
-            position: relative;
-            z-index: 1;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>josemanuelatero</title>
+  <style>
+    :root {
+      --square-size: 20;
+      --step: 20;
+    }
+    body {
+      margin: 0;
+      background: white;
+      color: black;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      transition: background-color 0.3s ease;
+    }
+
+    .square {
+      position: absolute;
+      width: calc(var(--square-size) * 1px);
+      height: calc(var(--square-size) * 1px);
+      background: black;
+      transition: left 0.3s ease, top 0.3s ease, background-color 0.2s linear;
+    }
+
+    h1, p {
+      position: relative;
+      z-index: 1;
+      transition: font-weight 0.2s;
+    }
+    p:hover { font-weight: bold; }
+  </style>
 </head>
 <body>
-    <h1>josemanuelatero</h1>
-    <p id="cvButton">CV</p>
-    <p>Carpeta</p>
+  <h1>josemanuelatero</h1>
+  <p id="cvButton">CV</p>
+  <p>Carpeta</p>
+
+  <div id="square1" class="square"></div>
+
+  <script>
+    // Colores: negro, azul, rojo sangre
+    const colors = ['#000000', '#0047FF', '#8B0000'];
+    const step = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--step'));
+    const size = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--square-size'));
+
+    function createSquare(id, startX, startY, dirX, dirY, interval, colorOffset = 0) {
+      const sq = document.createElement("div");
+      sq.id = id;
+      sq.className = "square";
+      document.body.appendChild(sq);
+      sq.style.left = startX + "px";
+      sq.style.top = startY + "px";
+      return {
+        el: sq,
+        x: startX,
+        y: startY,
+        dirX: dirX,
+        dirY: dirY,
+        interval: interval,
+        timer: null,
+        colorIndex: colorOffset % colors.length
+      };
+    }
+
+    // Cuadrado 1: izquierda -> derecha, sube en Y (cada 1s), color fijo inicial negro
+    let square1 = {
+      el: document.getElementById("square1"),
+      x: 0,
+      y: window.innerHeight - size,
+      dirX: 1,
+      dirY: -1,
+      interval: 1000,
+      timer: null,
+      colorIndex: 0
+    };
+    let squares = [square1];
+
+    function tick(square) {
+      const maxX = window.innerWidth - size;
+      const maxY = window.innerHeight - size;
+
+      // Avanzar en X
+      square.x += step * square.dirX;
+
+      // Cambiar color sincronizado con su salto
+      square.colorIndex = (square.colorIndex + 1) % colors.length;
+      square.el.style.backgroundColor = colors[square.colorIndex];
+
+      // Lógica de cuadrado 1 (dirX = 1, dirY = -1): sube en Y al tocar el borde derecho
+      if (square.dirX === 1 && square.x >= maxX) {
+        square.x = maxX;
+        square.y += step * square.dirY; // sube
+        if (square.y < 0) {
+          square.y = maxY; // reaparece abajo
+          square.x = 0;    // vuelve a empezar desde la izquierda
+        }
+      }
+
+      // Lógica de cuadrado 2 (dirX = -1, dirY = 1): baja en Y al tocar el borde izquierdo
+      if (square.dirX === -1 && square.x <= 0) {
+        square.x = 0;
+        square.y += step * square.dirY; // baja
+        if (square.y > maxY) {
+          square.y = 0;    // reaparece arriba
+          square.x = maxX; // vuelve a empezar desde la derecha
+        }
+      }
+
+      square.el.style.left = square.x + "px";
+      square.el.style.top  = square.y + "px";
+    }
+
+    // Click: cambia fondo 1s y crea segundo cuadrado (si no existe) con desfase de color fijo
+    function handleClick(event) {
+      const sq = event.target;
+      const color = sq.style.backgroundColor || "#000";
+      document.body.style.backgroundColor = color;
+      setTimeout(() => { document.body.style.backgroundColor = "white"; }, 1000);
+
+      if (squares.length < 2) {
+        // Segundo cuadrado: derecha -> izquierda, baja en Y, el doble de rápido (0.5s),
+        // empieza con desfase de color fijo (índice +1 → azul)
+        const newSq = createSquare("square2", window.innerWidth - size, 0, -1, 1, 500, (square1.colorIndex + 1));
+        newSq.el.style.backgroundColor = colors[newSq.colorIndex];
+        newSq.el.addEventListener("click", handleClick);
+        squares.push(newSq);
+        newSq.timer = setInterval(() => tick(newSq), newSq.interval);
+      }
+    }
+
+    // Eventos
+    square1.el.addEventListener("click", handleClick);
+
+    // Inicializar posiciones y color inicial del cuadrado 1
+    square1.el.style.left = square1.x + "px";
+    square1.el.style.top  = square1.y + "px";
+    square1.el.style.backgroundColor = colors[square1.colorIndex];
+
+    // Movimiento cuadrado 1 (cada 1s)
+    square1.timer = setInterval(() => tick(square1), square1.interval);
+
+    // Adaptación a resize
+    window.addEventListener("resize", () => {
+      const maxX = window.innerWidth - size;
+      const maxY = window.innerHeight - size;
+      squares.forEach(sq => {
+        if (sq.x > maxX) sq.x = maxX;
+        if (sq.y > maxY) sq.y = maxY;
+        sq.el.style.left = sq.x + "px";
+        sq.el.style.top  = sq.y + "px";
+      });
+    });
+  </script>
 </body>
 </html>
