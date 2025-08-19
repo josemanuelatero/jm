@@ -7,16 +7,14 @@
     <style>
         body {
             margin: 0;
-            overflow: hidden;
-            background: #0e0e0e;
-            color: white;
+            background: white;
+            color: black;
             font-family: Arial, sans-serif;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            position: relative;
         }
         canvas {
             position: absolute;
@@ -36,88 +34,5 @@
     <h1>josemanuelatero</h1>
     <p id="cvButton">CV</p>
     <p>Carpeta</p>
-    <canvas id="backgroundCanvas"></canvas>
-    <script>
-        const canvas = document.getElementById('backgroundCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        let particles = [];
-        const particleCount = 250;
-        const maxDistance = 150;
-
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.speedX = (Math.random() * 0.3 - 0.15);
-                this.speedY = (Math.random() * 0.3 - 0.15);
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-        }
-
-        function drawLines(mouseX, mouseY) {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    let dx = particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < maxDistance) {
-                        let opacity = 1 - distance / maxDistance;
-                        ctx.strokeStyle = `rgba(139, 0, 0, ${opacity})`;
-                        ctx.lineWidth = 0.6;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function createParticles() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
-            }
-        }
-
-        function animateParticles(mouseX = null, mouseY = null) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawLines(mouseX, mouseY);
-            particles.forEach(particle => particle.update());
-            requestAnimationFrame(() => animateParticles(mouseX, mouseY));
-        }
-
-        createParticles();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            createParticles();
-        });
-
-        document.addEventListener('mousemove', (event) => {
-            animateParticles(event.clientX, event.clientY);
-        });
-
-        document.addEventListener('touchmove', (event) => {
-            let touch = event.touches[0];
-            animateParticles(touch.clientX, touch.clientY);
-        });
-
-        document.getElementById('cvButton').addEventListener('click', () => {
-            window.location.href = 'cv.html';
-        });
-    </script>
 </body>
 </html>
