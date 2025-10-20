@@ -5,51 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>josemanuelatero</title>
   <style>
-    html, body { height: 100%; }
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
+      overflow: hidden;
       font-family: Arial, sans-serif;
       color: black;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
       position: relative;
-      background: white; /* fallback si el vídeo no carga */
+      background: black;
     }
-    .bg-video {
+
+    .video-background {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      overflow: hidden;
       z-index: -1;
-      opacity: 0.35;       /* ligera transparencia */
-      pointer-events: none;
-      background: #fff;
     }
+
+    iframe {
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
     h1, a {
       margin: 6px 0;
       padding: 2px 6px;
       text-decoration: none;
-      color: black;
+      color: white;
       transition: font-weight 0.2s;
       position: relative;
       z-index: 1;
     }
-    a:hover, h1:hover { font-weight: bold; }
-    @media (prefers-reduced-motion: reduce) {
-      .bg-video { display: none; }
-      body { background: white; }
+
+    a:hover, h1:hover {
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <video class="bg-video" autoplay muted loop playsinline preload="metadata">
-    <source src="Comp1.mp4" type="video/mp4">
-    Tu navegador no soporta el vídeo HTML5.
-  </video>
+  <div class="video-background">
+    <iframe 
+      src="https://www.youtube.com/embed/tMl7RZAQUKw?autoplay=1&mute=1&loop=1&playlist=tMl7RZAQUKw&controls=0&showinfo=0&modestbranding=1"
+      frameborder="0"
+      allow="autoplay; fullscreen"
+      allowfullscreen>
+    </iframe>
+  </div>
 
   <h1>josemanuelatero</h1>
   <a href="cv.pdf" target="_blank">CV</a>
