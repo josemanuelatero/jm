@@ -16,12 +16,13 @@
       color: black;
     }
 
-    /* Capa de vídeo: detrás pero visible */
+    /* Capa de vídeo a pantalla completa */
     .video-layer {
       position: fixed;
       inset: 0;
-      z-index: 0;              /* >=0 para evitar que quede detrás del root */
+      z-index: 0;
     }
+
     .video-layer video {
       width: 100vw;
       height: 100vh;
@@ -32,11 +33,11 @@
       display: block;
     }
 
-    /* Contenido por encima del vídeo */
+    /* Contenido centrado y más alto */
     .content {
       position: relative;
       z-index: 1;
-      top: -10vh;              /* elevar ligeramente */
+      top: -25vh; /* sube el bloque visualmente */
       height: 100%;
       display: flex;
       flex-direction: column;
@@ -51,9 +52,11 @@
       color: black;
       transition: font-weight 0.2s;
     }
-    a:hover, h1:hover { font-weight: bold; }
 
-    /* Si el usuario pide reducir movimiento, no ocultamos el vídeo por completo */
+    a:hover, h1:hover {
+      font-weight: bold;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .video-layer video { opacity: 0.2; }
     }
@@ -61,7 +64,7 @@
 </head>
 <body>
   <div class="video-layer">
-    <video autoplay muted loop playsinline preload="auto" poster="">
+    <video autoplay muted loop playsinline preload="auto">
       <source src="Comp1.webm" type="video/webm">
       <source src="Comp1.mp4" type="video/mp4">
       Tu navegador no soporta el vídeo HTML5.
