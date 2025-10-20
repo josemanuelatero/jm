@@ -14,19 +14,19 @@
       justify-content: center;
       align-items: center;
       position: relative;
-      background: #000; /* fallback mientras carga el vídeo */
+      background: white;
+      transform: translateY(-33%);
     }
-    /* Vídeo local a pantalla completa, sin franjas */
     .bg-video {
       position: fixed;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;      /* elimina barras negras (recorta para cubrir) */
+      object-fit: cover;
       z-index: -1;
-      pointer-events: none;   /* no bloquea clics */
-      opacity: 0.35;          /* fondo sutil; cambia si quieres */
-      background: #000;
+      pointer-events: none;
+      opacity: 0.55;
+      background: white;
     }
     h1, a {
       margin: 6px 0;
@@ -34,19 +34,18 @@
       color: white;
       transition: font-weight 0.2s;
       position: relative;
-      z-index: 1;             /* letras sobre el vídeo */
+      z-index: 1;
     }
     a:hover, h1:hover { font-weight: bold; }
     @media (prefers-reduced-motion: reduce) {
       .bg-video { display: none; }
-      body { background: #000; }
+      body { background: white; transform: none; }
     }
   </style>
 </head>
 <body>
-  <!-- Vídeo local en la misma carpeta -->
   <video class="bg-video" autoplay muted loop playsinline preload="metadata">
-    <source src="Comp1.webm" type="video/mp4">
+    <source src="Comp1.mp4" type="video/mp4">
     Tu navegador no soporta el vídeo HTML5.
   </video>
 
