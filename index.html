@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>josemanuelatero</title>
   <style>
-    html, body { height: 100%; margin: 0; overflow: hidden; }
-    body {
+    html, body {
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
       font-family: Arial, sans-serif;
       color: white;
       display: flex;
@@ -14,31 +16,24 @@
       justify-content: center;
       align-items: center;
       position: relative;
-      background: #000; /* fallback */
+      background: black;
     }
 
-    /* Contenedor del vídeo: ocupa toda la pantalla y se desborda para evitar franjas */
-    .video-bg {
+    /* Fondo del vídeo a pantalla completa */
+    .video-background {
       position: fixed;
-      inset: 0;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    /* El truco: hacemos el iframe MUCHO más grande y lo centramos para cubrir sin barras */
-    .video-bg iframe {
-      position: absolute;
       top: 50%;
       left: 50%;
-      width: 200vw;          /* suficientemente grande para cubrir incluso vídeos verticales */
-      height: 200vh;
-      transform: translate(-50%, -50%);
-      border: 0;
+      width: 120vw;
+      height: 120vh;
+      transform: translate(-50%, -50%) scale(1.3);
+      overflow: hidden;
+      z-index: -1;
+      opacity: 0.35;
       pointer-events: none;
-      opacity: 0.35;         /* fondo sutil */
-      background: transparent;
     }
 
+    /* Texto superpuesto */
     h1, a {
       margin: 6px 0;
       text-decoration: none;
@@ -47,19 +42,28 @@
       position: relative;
       z-index: 1;
     }
-    a:hover, h1:hover { font-weight: bold; }
+    a:hover, h1:hover {
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <div class="video-bg">
-    <iframe
-      src="https://player.vimeo.com/video/1128759903?autoplay=1&loop=1&muted=1&background=1"
-      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
-      referrerpolicy="strict-origin-when-cross-origin"
-      title="Comp 1">
-    </iframe>
+  <!-- Contenedor de vídeo -->
+  <div class="video-background">
+    <div style="padding:56.25% 0 0 0;position:relative;width:100%;height:100%;">
+      <iframe 
+        src="https://player.vimeo.com/video/1128759903?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;loop=1&amp;autoplay=1&amp;muted=1&amp;background=1" 
+        frameborder="0" 
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;"
+        title="Comp 1">
+      </iframe>
+    </div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
   </div>
 
+  <!-- Contenido principal -->
   <h1>josemanuelatero</h1>
   <a href="cv.pdf" target="_blank">CV</a>
   <a href="carpeta.html" target="_blank">Carpeta</a>
