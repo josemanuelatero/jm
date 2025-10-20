@@ -5,52 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>josemanuelatero</title>
   <style>
-    html, body { height: 100%; margin: 0; overflow: hidden; }
-    body {
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      background: white;
       font-family: Arial, sans-serif;
       color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      background: white;
-      transform: translateY(-33%);
     }
+
+    /* Vídeo cubre toda la pantalla sin márgenes */
     .bg-video {
       position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
       object-fit: cover;
       z-index: -1;
       pointer-events: none;
       opacity: 0.55;
-      background: white;
     }
+
+    /* Contenido centrado y subido un poco */
+    .content {
+      position: relative;
+      top: -10vh; /* sube el bloque visualmente */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+    }
+
     h1, a {
       margin: 6px 0;
       text-decoration: none;
       color: white;
       transition: font-weight 0.2s;
-      position: relative;
-      z-index: 1;
     }
+
     a:hover, h1:hover { font-weight: bold; }
+
     @media (prefers-reduced-motion: reduce) {
       .bg-video { display: none; }
-      body { background: white; transform: none; }
+      body { background: white; }
     }
   </style>
 </head>
 <body>
-  <video class="bg-video" autoplay muted loop playsinline preload="metadata">
+  <video class="bg-video" autoplay muted loop playsinline preload="auto">
     <source src="Comp1.webm" type="video/webm">
     Tu navegador no soporta el vídeo HTML5.
   </video>
 
-  <h1>josemanuelatero</h1>
-  <a href="cv.pdf" target="_blank">CV</a>
-  <a href="carpeta.html" target="_blank">Carpeta</a>
+  <div class="content">
+    <h1>josemanuelatero</h1>
+    <a href="cv.pdf" target="_blank">CV</a>
+    <a href="carpeta.html" target="_blank">Carpeta</a>
+  </div>
 </body>
 </html>
