@@ -4,30 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- SEO -->
   <title>José Manuel Atero — Arquitecto</title>
   <meta name="description" content="José Manuel Atero, arquitecto. Portfolio y curriculum.">
   <meta name="author" content="José Manuel Atero">
-
-  <!-- Open Graph -->
   <meta property="og:title" content="José Manuel Atero — Arquitecto">
   <meta property="og:description" content="Portfolio y curriculum de José Manuel Atero, arquitecto.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://josemanuelatero.github.io">
+  <meta property="og:url" content="https://josemanuelatero.github.io/jm/">
   <meta property="og:image" content="og-preview.jpg">
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="José Manuel Atero — Arquitecto">
-  <meta name="twitter:description" content="Portfolio y curriculum de José Manuel Atero, arquitecto.">
 
-  <!-- Preload vídeo -->
   <link rel="preload" as="video" href="Comp1.webm" type="video/webm">
-
-  <!-- Tipografía -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -96,7 +86,7 @@
       flex-direction: column;
       justify-content: center;
       gap: 5px;
-      width: 28px;
+      width: 34px;
       height: 28px;
       cursor: pointer;
       background: none;
@@ -105,25 +95,15 @@
     }
     .burger span {
       display: block;
+      width: 34px;
       height: 1px;
       background: var(--ink);
-      transition: transform 0.4s var(--ease), opacity 0.3s ease, width 0.4s var(--ease);
+      transition: transform 0.4s var(--ease), opacity 0.3s ease;
       transform-origin: center;
     }
-    .burger span:nth-child(1) { width: 34px; }
-    .burger span:nth-child(2) { width: 34px; }
-    .burger span:nth-child(3) { width: 34px; }
-
-    body.menu-open .burger span:nth-child(1) {
-      transform: translateY(6px) rotate(45deg);
-    }
-    body.menu-open .burger span:nth-child(2) {
-      opacity: 0;
-      width: 0;
-    }
-    body.menu-open .burger span:nth-child(3) {
-      transform: translateY(-6px) rotate(-45deg);
-    }
+    body.menu-open .burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    body.menu-open .burger span:nth-child(2) { opacity: 0; }
+    body.menu-open .burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
     /* ── Menú lateral ────────────────────────────────────── */
     .menu-overlay {
@@ -142,8 +122,13 @@
       transform: translateX(100%);
       transition: transform 0.55s var(--ease);
     }
-    body.menu-open .menu-overlay {
-      transform: translateX(0);
+    body.menu-open .menu-overlay { transform: translateX(0); }
+
+    .menu-rule {
+      width: 24px;
+      height: 1px;
+      background: var(--muted);
+      margin-top: clamp(24px, 4vh, 40px);
     }
 
     .menu-overlay nav {
@@ -168,24 +153,9 @@
       padding-bottom: 2px;
       transition: background-size 0.4s var(--ease);
     }
-    .menu-overlay nav a:hover {
-      background-size: 100% 1px;
-    }
-
-    .menu-rule {
-      width: 24px;
-      height: 1px;
-      background: var(--muted);
-      margin-top: clamp(24px, 4vh, 40px);
-    }
-
-
+    .menu-overlay nav a:hover { background-size: 100% 1px; }
 
     /* ── Animaciones ─────────────────────────────────────── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
     @keyframes fadeIn {
       from { opacity: 0; }
       to   { opacity: 1; }
@@ -194,7 +164,6 @@
 </head>
 <body>
 
-  <!-- Vídeo de fondo -->
   <div class="video-layer" aria-hidden="true">
     <video autoplay muted loop playsinline preload="auto" poster="poster.jpg">
       <source src="Comp1.webm" type="video/webm">
@@ -202,32 +171,22 @@
     </video>
   </div>
 
-  <!-- Header -->
   <header>
     <a href="index.html" class="logo" aria-label="Inicio">josemanuelatero</a>
-    <button
-      class="burger"
-      aria-label="Abrir menú"
-      aria-expanded="false"
-      aria-controls="main-menu"
-      onclick="toggleMenu(this)"
-    >
+    <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-menu" onclick="toggleMenu(this)">
       <span></span>
       <span></span>
       <span></span>
     </button>
   </header>
 
-  <!-- Menú lateral -->
   <div class="menu-overlay" id="main-menu" role="dialog" aria-label="Menú de navegación">
     <div class="menu-rule"></div>
     <nav aria-label="Navegación principal">
-      <a href="cv.pdf"       aria-label="Descargar CV en PDF">cv</a>
-      <a href="carpeta.html" aria-label="Ver carpeta de proyectos">carpeta</a>
+      <a href="cv.html">cv</a>
+      <a href="carpeta.html">carpeta</a>
     </nav>
   </div>
-
-
 
   <script>
     function toggleMenu(btn) {

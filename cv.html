@@ -1,112 +1,91 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            background: #0e0e0e;
-            color: white;
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            position: relative;
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — José Manuel Atero</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink:   #111111;
+      --paper: #ffffff;
+      --muted: rgba(17,17,17,0.4);
+      --nav-h: clamp(52px, 8vh, 72px);
+      --ease:  cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(20px, 4vw, 48px);
+      opacity: 0;
+      animation: fadeIn 0.8s var(--ease) 0.1s forwards;
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.5vw, 1.05rem);
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    main {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease) 0.3s forwards;
+    }
+
+    .page-label {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: clamp(0.6rem, 1vw, 0.78rem);
+      letter-spacing: 0.22em;
+      text-transform: lowercase;
+      color: var(--muted);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <canvas id="backgroundCanvas"></canvas>
-    <script>
-        const canvas = document.getElementById('backgroundCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
 
-        let particles = [];
-        const particleCount = 250;
-        const maxDistance = 150;
+  <header>
+    <a href="index.html" class="logo" aria-label="Volver a la página principal">josemanuelatero</a>
+  </header>
 
-        class Particle {
-            constructor(x, y) {
-                this.x = x;
-                this.y = y;
-                this.speedX = (Math.random() * 0.3 - 0.15);
-                this.speedY = (Math.random() * 0.3 - 0.15);
-            }
+  <main>
+    <span class="page-label">cv</span>
+  </main>
 
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-        }
-
-        function drawLines(mouseX, mouseY) {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i + 1; j < particles.length; j++) {
-                    let dx = particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < maxDistance) {
-                        let opacity = 1 - distance / maxDistance;
-                        ctx.strokeStyle = `rgba(0, 100, 0, ${opacity})`; // Verde oscuro
-                        ctx.lineWidth = 0.6;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function createParticles() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle(Math.random() * canvas.width, Math.random() * canvas.height));
-            }
-        }
-
-        function animateParticles(mouseX = null, mouseY = null) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            drawLines(mouseX, mouseY);
-            particles.forEach(particle => particle.update());
-            requestAnimationFrame(() => animateParticles(mouseX, mouseY));
-        }
-
-        createParticles();
-        animateParticles();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            createParticles();
-        });
-
-        document.addEventListener('mousemove', (event) => {
-            animateParticles(event.clientX, event.clientY);
-        });
-
-        document.addEventListener('touchmove', (event) => {
-            let touch = event.touches[0];
-            animateParticles(touch.clientX, touch.clientY);
-        });
-    </script>
 </body>
 </html>
