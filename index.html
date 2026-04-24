@@ -83,7 +83,7 @@
     .logo {
       font-family: 'DM Mono', monospace;
       font-weight: 400;
-      font-size: clamp(0.62rem, 1.1vw, 0.76rem);
+      font-size: clamp(0.82rem, 1.5vw, 1.05rem);
       letter-spacing: 0.18em;
       text-transform: lowercase;
       color: var(--ink);
@@ -110,13 +110,12 @@
       transition: transform 0.4s var(--ease), opacity 0.3s ease, width 0.4s var(--ease);
       transform-origin: center;
     }
-    .burger span:nth-child(1) { width: 28px; }
-    .burger span:nth-child(2) { width: 20px; }
-    .burger span:nth-child(3) { width: 28px; }
+    .burger span:nth-child(1) { width: 34px; }
+    .burger span:nth-child(2) { width: 34px; }
+    .burger span:nth-child(3) { width: 34px; }
 
     body.menu-open .burger span:nth-child(1) {
       transform: translateY(6px) rotate(45deg);
-      width: 28px;
     }
     body.menu-open .burger span:nth-child(2) {
       opacity: 0;
@@ -124,7 +123,6 @@
     }
     body.menu-open .burger span:nth-child(3) {
       transform: translateY(-6px) rotate(-45deg);
-      width: 28px;
     }
 
     /* ── Menú lateral ────────────────────────────────────── */
@@ -139,8 +137,8 @@
       z-index: 9;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 0 clamp(32px, 5vw, 60px);
+      justify-content: flex-start;
+      padding: var(--nav-h) clamp(32px, 5vw, 60px) 0;
       transform: translateX(100%);
       transition: transform 0.55s var(--ease);
     }
@@ -151,56 +149,37 @@
     .menu-overlay nav {
       display: flex;
       flex-direction: column;
-      gap: clamp(16px, 2.5vh, 28px);
+      gap: clamp(12px, 2vh, 20px);
+      margin-top: clamp(24px, 4vh, 40px);
     }
     .menu-overlay nav a {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 500;
-      font-size: clamp(1.8rem, 3.2vw, 2.4rem);
-      letter-spacing: 0.04em;
+      font-family: 'DM Mono', monospace;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.5vw, 1.05rem);
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
       color: var(--ink);
       text-decoration: none;
       width: fit-content;
       background-image: linear-gradient(var(--ink), var(--ink));
-      background-size: 0% 1.5px;
+      background-size: 0% 1px;
       background-repeat: no-repeat;
       background-position: left bottom;
-      padding-bottom: 3px;
+      padding-bottom: 2px;
       transition: background-size 0.4s var(--ease);
     }
     .menu-overlay nav a:hover {
-      background-size: 100% 1.5px;
+      background-size: 100% 1px;
     }
 
     .menu-rule {
-      width: 32px;
+      width: 24px;
       height: 1px;
       background: var(--muted);
-      margin-bottom: clamp(24px, 4vh, 44px);
+      margin-top: clamp(24px, 4vh, 40px);
     }
 
-    /* ── Título hero ─────────────────────────────────────── */
-    .hero {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
-      display: flex;
-      align-items: flex-end;
-      padding: 0 clamp(20px, 4vw, 48px) clamp(32px, 6vh, 72px);
-      pointer-events: none;
-    }
 
-    .hero-title {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 600;
-      font-size: clamp(3.2rem, 10vw, 9.5rem);
-      letter-spacing: -0.01em;
-      line-height: 0.9;
-      text-transform: lowercase;
-      color: var(--ink);
-      opacity: 0;
-      animation: fadeUp 1.1s var(--ease) 0.3s forwards;
-    }
 
     /* ── Animaciones ─────────────────────────────────────── */
     @keyframes fadeUp {
@@ -243,15 +222,12 @@
   <div class="menu-overlay" id="main-menu" role="dialog" aria-label="Menú de navegación">
     <div class="menu-rule"></div>
     <nav aria-label="Navegación principal">
-      <a href="cv.pdf"       target="_blank" rel="noopener" aria-label="Descargar CV en PDF">CV</a>
-      <a href="carpeta.html" target="_blank" rel="noopener" aria-label="Ver carpeta de proyectos">Carpeta</a>
+      <a href="cv.pdf"       target="_blank" rel="noopener" aria-label="Descargar CV en PDF">cv</a>
+      <a href="carpeta.html" target="_blank" rel="noopener" aria-label="Ver carpeta de proyectos">carpeta</a>
     </nav>
   </div>
 
-  <!-- Título grande abajo a la izquierda -->
-  <main class="hero">
-    <h1 class="hero-title">josemanuelatero</h1>
-  </main>
+
 
   <script>
     function toggleMenu(btn) {
