@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- CORRECCION_FINAL_ARQUITECTO_SIN_BIMI_20260424 -->
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -15,14 +16,13 @@
       --paper: #ffffff;
       --muted: rgba(17,17,17,0.4);
       --line:  rgba(17,17,17,0.12);
-      --nav-h: clamp(52px, 8vh, 72px);
+      --nav-h: clamp(58px, 8vh, 78px);
       --ease:  cubic-bezier(0.22, 1, 0.36, 1);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { min-height: 100%; width: 100%; background: var(--paper); color: var(--ink); }
     body { font-family: 'DM Mono', monospace; font-weight: 300; overflow-x: hidden; }
 
-    /* ── Header ── */
     header {
       position: fixed; top: 0; left: 0; right: 0; z-index: 10;
       height: var(--nav-h);
@@ -32,13 +32,22 @@
       background: rgba(255,255,255,0.86);
       backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     }
+    .brand {
+      display: inline-flex; flex-direction: column; align-items: flex-start;
+      gap: 0.28rem; color: var(--ink); text-decoration: none;
+    }
     .logo {
       font-family: 'DM Mono', monospace; font-weight: 400;
       font-size: clamp(0.82rem, 1.5vw, 1.05rem); letter-spacing: 0.18em;
-      text-transform: lowercase; color: var(--ink); text-decoration: none;
+      text-transform: lowercase; color: var(--ink); text-decoration: none; line-height: 1;
+    }
+    .logo-subtitle {
+      display: block;
+      font-family: 'DM Mono', monospace; font-weight: 300;
+      font-size: clamp(0.66rem, 1vw, 0.78rem); letter-spacing: 0.20em;
+      text-transform: lowercase; color: rgba(17,17,17,0.55); line-height: 1;
     }
 
-    /* ── Hamburger ── */
     .burger {
       display: flex; flex-direction: column; justify-content: center;
       gap: 5px; width: 34px; height: 28px;
@@ -53,7 +62,6 @@
     body.menu-open .burger span:nth-child(2) { opacity: 0; }
     body.menu-open .burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
-    /* ── Menú lateral ── */
     .menu-overlay {
       position: fixed; top: 0; right: 0; z-index: 9;
       width: clamp(220px, 28vw, 320px); height: 100%;
@@ -77,110 +85,57 @@
     }
     .menu-overlay nav a:hover { background-size: 100% 1px; }
 
-    /* ── CV ── */
     main {
-      width: 100%;
-      min-height: 100vh;
+      width: 100%; min-height: 100vh;
       padding: clamp(116px, 18vh, 180px) clamp(20px, 4vw, 48px) clamp(64px, 10vh, 120px);
       opacity: 0; animation: fadeUp 0.9s var(--ease) 0.3s forwards;
     }
-    .cv-shell {
-      width: min(1180px, 100%);
-      margin: 0 auto;
-    }
+    .cv-shell { width: min(1180px, 100%); margin: 0 auto; }
     .page-label {
-      display: block;
-      margin-bottom: clamp(56px, 10vh, 120px);
-      text-align: center;
+      display: block; margin-bottom: clamp(56px, 10vh, 120px); text-align: center;
       font-family: 'DM Mono', monospace; font-weight: 300;
       font-size: clamp(0.6rem, 1vw, 0.78rem); letter-spacing: 0.22em;
       text-transform: lowercase; color: var(--muted);
     }
-    .cv-table {
-      width: 100%;
-      border-top: 1px solid var(--line);
-    }
+    .cv-table { width: 100%; border-top: 1px solid var(--line); }
     .cv-row {
-      display: grid;
-      grid-template-columns: minmax(180px, 25%) 1fr;
+      display: grid; grid-template-columns: minmax(180px, 25%) 1fr;
       gap: clamp(24px, 6vw, 96px);
       padding: clamp(28px, 5vh, 54px) 0;
       border-bottom: 1px solid var(--line);
     }
     .cv-row h2 {
-      font-size: clamp(0.68rem, 1vw, 0.82rem);
-      line-height: 1.55;
-      font-weight: 400;
-      letter-spacing: 0.18em;
-      text-transform: lowercase;
+      font-size: clamp(0.68rem, 1vw, 0.82rem); line-height: 1.55;
+      font-weight: 400; letter-spacing: 0.18em; text-transform: lowercase;
     }
     .cv-content {
-      display: grid;
-      gap: clamp(18px, 2.6vh, 30px);
+      display: grid; gap: clamp(18px, 2.6vh, 30px);
       font-size: clamp(0.68rem, 0.92vw, 0.82rem);
-      line-height: 1.72;
-      letter-spacing: 0.04em;
+      line-height: 1.72; letter-spacing: 0.04em;
     }
     .cv-item {
-      display: grid;
-      grid-template-columns: minmax(96px, 132px) 1fr;
-      gap: clamp(16px, 3vw, 40px);
-      align-items: start;
+      display: grid; grid-template-columns: minmax(96px, 132px) 1fr;
+      gap: clamp(16px, 3vw, 40px); align-items: start;
     }
-    .cv-date {
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .cv-title {
-      display: block;
-      font-weight: 400;
-    }
-    .cv-subtitle {
-      display: block;
-      color: var(--ink);
-    }
-    .cv-note,
-    .cv-list {
-      color: rgba(17,17,17,0.66);
-    }
-    .cv-list {
-      list-style: none;
-      display: grid;
-      gap: 0.45rem;
-      margin-top: 0.65rem;
-    }
-    .cv-list li::before { content: "— "; color: var(--muted); }
-    .cv-links {
-      display: grid;
-      gap: 0.35rem;
-    }
-    .cv-links a,
+    .cv-item-plain { grid-template-columns: 1fr; }
+    .cv-date { color: var(--muted); white-space: nowrap; }
+    .cv-title, .cv-content a { display: block; font-weight: 400; }
+    .cv-note { display: block; color: rgba(17,17,17,0.66); }
     .cv-content a {
-      color: var(--ink);
-      text-decoration: none;
+      color: var(--ink); text-decoration: none;
       background-image: linear-gradient(var(--ink), var(--ink));
-      background-size: 0% 1px;
-      background-repeat: no-repeat;
-      background-position: left bottom;
-      padding-bottom: 2px;
-      transition: background-size 0.4s var(--ease);
-      overflow-wrap: anywhere;
+      background-size: 0% 1px; background-repeat: no-repeat; background-position: left bottom;
+      padding-bottom: 2px; transition: background-size 0.4s var(--ease);
+      overflow-wrap: anywhere; width: fit-content;
     }
-    .cv-links a:hover,
     .cv-content a:hover { background-size: 100% 1px; }
     .compact { gap: 0.7rem; }
 
     @media (max-width: 760px) {
       main { padding-top: clamp(96px, 16vh, 140px); }
       .page-label { margin-bottom: clamp(42px, 8vh, 72px); }
-      .cv-row {
-        grid-template-columns: 1fr;
-        gap: 18px;
-      }
-      .cv-item {
-        grid-template-columns: 1fr;
-        gap: 4px;
-      }
+      .cv-row { grid-template-columns: 1fr; gap: 18px; }
+      .cv-item { grid-template-columns: 1fr; gap: 4px; }
       .cv-date { white-space: normal; }
     }
 
@@ -189,9 +144,11 @@
   </style>
 </head>
 <body>
-
   <header>
-    <a href="index.html" class="logo">josemanuelatero</a>
+    <a href="index.html" class="brand" aria-label="Inicio">
+      <span class="logo">josemanuelatero</span>
+      <span class="logo-subtitle">arquitecto</span>
+    </a>
     <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-menu" onclick="toggleMenu(this)">
       <span></span><span></span><span></span>
     </button>
@@ -208,210 +165,237 @@
   <main>
     <div class="cv-shell">
       <span class="page-label">cv</span>
-
       <div class="cv-table" aria-label="Curriculum vitae">
-        <section class="cv-row" id="datos-personales">
-          <h2>datos personales</h2>
-          <div class="cv-content compact">
-            <div>
-              <span class="cv-title">José Manuel Atero Calado</span>
-              <span class="cv-note">Arquitecto · doctorando en Arquitectura</span>
+          <section class="cv-row" id="datos-personales">
+            <h2>datos personales</h2>
+            <div class="cv-content compact">
+              <article class="cv-item cv-item-plain">
+                <div>
+                  <span class="cv-title">José Manuel Atero Calado</span>
+                  <span class="cv-note">Arquitecto · doctorando en Arquitectura</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">email</div>
+                <div>
+                  <a href="mailto:jma.calado@gmail.com">jma.calado@gmail.com</a>
+                  
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">email</div>
+                <div>
+                  <a href="mailto:jatero@us.es">jatero@us.es</a>
+                  
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">orcid</div>
+                <div>
+                  <a href="https://orcid.org/0000-0002-7844-0693" target="_blank" rel="noopener">0000-0002-7844-0693</a>
+                  
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">prisma</div>
+                <div>
+                  <a href="https://prisma.us.es/investigador/8955" target="_blank" rel="noopener">https://prisma.us.es/investigador/8955</a>
+                  
+                </div>
+              </article>
             </div>
-            <div class="cv-links">
-              <a href="mailto:jma.calado@gmail.com">jma.calado@gmail.com</a>
-              <a href="mailto:jatero@us.es">jatero@us.es</a>
+          </section>
+
+          <section class="cv-row" id="experiencia-laboral">
+            <h2>experiencia laboral</h2>
+            <div class="cv-content">
+              <article class="cv-item">
+                <div class="cv-date">2025 — actualidad</div>
+                <div>
+                  <span class="cv-title">Arquitecto autónomo</span>
+                  <span class="cv-note">Desarrollo de trabajos profesionales vinculados a la arquitectura, el proyecto arquitectónico, la documentación técnica y la representación gráfica.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2024 — 2025</div>
+                <div>
+                  <span class="cv-title">Fundación de Investigación de la Universidad de Sevilla</span>
+                  <span class="cv-note">Contratado laboral en los proyectos 5157 / 2066 — Proyecto básico avanzado de estación para transporte fluvial público Metrorío; y 5187 / 2066 — Modelo de implantación de las estaciones. Manual y recomendaciones de diseño.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2023 — 2024</div>
+                <div>
+                  <span class="cv-title">Universidad de Sevilla</span>
+                  <span class="cv-note">Personal científico-técnico. Colaboración en el proyecto de investigación Ref. US.22-11 SIFACI.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2021 — 2023</div>
+                <div>
+                  <span class="cv-title">Donaire Arquitectos S.L.P.</span>
+                  <span class="cv-note">Arquitecto. Desarrollo de proyectos básicos y de ejecución.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2021</div>
+                <div>
+                  <span class="cv-title">Sursuroeste Arquitectos</span>
+                  <span class="cv-note">Colaborador. Desarrollo de proyectos básicos y de ejecución.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2016 — 2021</div>
+                <div>
+                  <span class="cv-title">Estudio Curtidores</span>
+                  <span class="cv-note">Colaborador. Desarrollo de proyectos básicos y de ejecución.</span>
+                </div>
+              </article>
             </div>
-            <div class="cv-links">
-              <span>ORCID · <a href="https://orcid.org/0000-0002-7844-0693" target="_blank" rel="noopener">0000-0002-7844-0693</a></span>
-              <span>PRISMA · <a href="https://prisma.us.es/investigador/8955" target="_blank" rel="noopener">prisma.us.es/investigador/8955</a></span>
+          </section>
+
+          <section class="cv-row" id="educacion">
+            <h2>educación</h2>
+            <div class="cv-content">
+              <article class="cv-item">
+                <div class="cv-date">2022 — actualidad</div>
+                <div>
+                  <span class="cv-title">Escuela Internacional de Doctorado de la Universidad de Sevilla — EIDUS</span>
+                  <span class="cv-note">Doctorando en el Programa de Doctorado en Arquitectura. Línea de investigación: Proyecto de arquitectura y realidad contemporánea.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2020 — 2021</div>
+                <div>
+                  <span class="cv-title">Escuela Técnica Superior de Arquitectura de Sevilla — ETSAS</span>
+                  <span class="cv-note">Máster Universitario en Arquitectura.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2015 — 2020</div>
+                <div>
+                  <span class="cv-title">Escuela Técnica Superior de Arquitectura de Sevilla — ETSAS</span>
+                  <span class="cv-note">Grado en Fundamentos de Arquitectura.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2014 — 2015</div>
+                <div>
+                  <span class="cv-title">IES Virgen de los Reyes</span>
+                  <span class="cv-note">Técnico Superior de Formación Profesional en Automoción.</span>
+                </div>
+              </article>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section class="cv-row" id="experiencia-laboral">
-          <h2>experiencia laboral</h2>
-          <div class="cv-content">
-            <article class="cv-item">
-              <div class="cv-date">2025 — actualidad</div>
-              <div>
-                <span class="cv-title">Arquitecto autónomo</span>
-                <span class="cv-note">Desarrollo de trabajos profesionales vinculados a la arquitectura, el proyecto arquitectónico, la documentación técnica y la representación gráfica.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2024 — 2025</div>
-              <div>
-                <span class="cv-title">Fundación de Investigación de la Universidad de Sevilla</span>
-                <span class="cv-subtitle">Contratado laboral en proyectos de investigación y transferencia.</span>
-                <ul class="cv-list">
-                  <li>5157 / 2066 · Proyecto básico avanzado de estación para transporte fluvial público Metrorío.</li>
-                  <li>5187 / 2066 · Modelo de implantación de las estaciones. Manual y recomendaciones de diseño.</li>
-                </ul>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2023 — 2024</div>
-              <div>
-                <span class="cv-title">Universidad de Sevilla</span>
-                <span class="cv-note">Personal científico-técnico. Colaboración en el proyecto de investigación Ref. US.22-11 SIFACI.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2021 — 2023</div>
-              <div>
-                <span class="cv-title">Donaire Arquitectos S.L.P.</span>
-                <span class="cv-note">Arquitecto. Desarrollo de proyectos básicos y de ejecución.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2021</div>
-              <div>
-                <span class="cv-title">Sursuroeste Arquitectos</span>
-                <span class="cv-note">Colaborador. Desarrollo de proyectos básicos y de ejecución.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2016 — 2021</div>
-              <div>
-                <span class="cv-title">Estudio Curtidores</span>
-                <span class="cv-note">Colaborador. Desarrollo de proyectos básicos y de ejecución.</span>
-              </div>
-            </article>
-          </div>
-        </section>
+          <section class="cv-row" id="formacion-complementaria">
+            <h2>formación complementaria</h2>
+            <div class="cv-content">
+              <article class="cv-item">
+                <div class="cv-date">2025</div>
+                <div>
+                  <span class="cv-title">Operador de UAS y piloto remoto</span>
+                  <span class="cv-note">Formación para operaciones con sistemas de aeronaves no tripuladas aplicadas a documentación gráfica, levantamiento arquitectónico y análisis territorial.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2025</div>
+                <div>
+                  <span class="cv-title">Curso Experto Revit Arquitectura — Oficial Autodesk. Proyecto Básico y de Ejecución</span>
+                  <span class="cv-note">Formación BIM orientada al uso profesional de Autodesk Revit.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2021</div>
+                <div>
+                  <span class="cv-title">BIMa-1.1 Revit. Proyecto Básico</span>
+                  <span class="cv-note">Curso impartido por la Fundación FIDAS.</span>
+                </div>
+              </article>
+            </div>
+          </section>
 
-        <section class="cv-row" id="educacion">
-          <h2>educación</h2>
-          <div class="cv-content">
-            <article class="cv-item">
-              <div class="cv-date">2022 — actualidad</div>
-              <div>
-                <span class="cv-title">Escuela Internacional de Doctorado de la Universidad de Sevilla — EIDUS</span>
-                <span class="cv-note">Doctorando en el Programa de Doctorado en Arquitectura. Línea de investigación: Proyecto de arquitectura y realidad contemporánea.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2020 — 2021</div>
-              <div>
-                <span class="cv-title">Escuela Técnica Superior de Arquitectura de Sevilla — ETSAS</span>
-                <span class="cv-note">Máster Universitario en Arquitectura.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2015 — 2020</div>
-              <div>
-                <span class="cv-title">Escuela Técnica Superior de Arquitectura de Sevilla — ETSAS</span>
-                <span class="cv-note">Grado en Fundamentos de Arquitectura.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2014 — 2015</div>
-              <div>
-                <span class="cv-title">IES Virgen de los Reyes</span>
-                <span class="cv-note">Técnico Superior de Formación Profesional en Automoción.</span>
-              </div>
-            </article>
-          </div>
-        </section>
+          <section class="cv-row" id="idiomas">
+            <h2>idiomas</h2>
+            <div class="cv-content compact">
+              <article class="cv-item">
+                <div class="cv-date">español</div>
+                <div>
+                  <span class="cv-title">Nativo</span>
+                  
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">inglés</div>
+                <div>
+                  <span class="cv-title">B1</span>
+                  <span class="cv-note">Instituto de Idiomas de la Universidad de Sevilla.</span>
+                </div>
+              </article>
+            </div>
+          </section>
 
-        <section class="cv-row" id="formacion-complementaria">
-          <h2>formación complementaria</h2>
-          <div class="cv-content">
-            <article class="cv-item">
-              <div class="cv-date">2025</div>
-              <div>
-                <span class="cv-title">Curso Experto Revit Arquitectura — Oficial Autodesk</span>
-                <span class="cv-note">Formación BIM orientada al uso profesional de Autodesk Revit.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2021</div>
-              <div>
-                <span class="cv-title">BIMa-1.1 Revit. Proyecto Básico</span>
-                <span class="cv-note">Curso impartido por la Fundación FIDAS.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">—</div>
-              <div>
-                <span class="cv-title">BIM I / BIM II</span>
-                <span class="cv-note">Formación oficial en Revit Autodesk.</span>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="cv-row" id="idiomas">
-          <h2>idiomas</h2>
-          <div class="cv-content compact">
-            <article class="cv-item">
-              <div class="cv-date">español</div>
-              <div><span class="cv-note">Nativo.</span></div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">inglés</div>
-              <div><span class="cv-note">B1 · Instituto de Idiomas de la Universidad de Sevilla.</span></div>
-            </article>
-          </div>
-        </section>
-
-        <section class="cv-row" id="meritos">
-          <h2>méritos más relevantes</h2>
-          <div class="cv-content">
-            <article class="cv-item">
-              <div class="cv-date">2025 — 2026</div>
-              <div>
-                <span class="cv-title">Colaborador docente externo</span>
-                <span class="cv-note">Departamento de Proyectos Arquitectónicos, ETSAS.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2024 — 2025</div>
-              <div>
-                <span class="cv-title">Personal científico-técnico en la Universidad de Sevilla</span>
-                <span class="cv-note">Colaboración en el proyecto de investigación Ref. US.22-11 SIFACI.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2022 — 2024</div>
-              <div>
-                <span class="cv-title">Asistente honorario</span>
-                <span class="cv-note">Adscripción al Departamento de Proyectos Arquitectónicos, ETSAS.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2021 — 2022</div>
-              <div>
-                <span class="cv-title">Labores de apoyo a la organización de la docencia</span>
-                <span class="cv-note">Apoyo en las asignaturas Arquitectura y Patrimonio, Proyectos 9 y Proyectos 10. Dirigido por Miguel Ángel de la Cova Morillo-Velarde.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2019</div>
-              <div>
-                <span class="cv-title">Colaborador en proyecto de investigación</span>
-                <span class="cv-note">Arquitectura, Proyecto y Sostenibilidad. Laboratorios de estudio en el litoral mediterráneo. Dirigido por Luz Fernández-Valderrama Aparicio.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2018</div>
-              <div>
-                <span class="cv-title">Apoyo en la edición del Atlas Potencial de Terapias Urbanas</span>
-                <span class="cv-note">Publicación enmarcada en el proyecto EUObs: Ecobarrios versus rehabilitación de barriadas. Proyecto de mejora de barriadas obsoletas en términos de sostenibilidad.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2017 — 2021</div>
-              <div>
-                <span class="cv-title">Alumno interno adscrito al Departamento de Proyectos Arquitectónicos, ETSAS</span>
-                <ul class="cv-list">
-                  <li>Propuesto por Luz Fernández-Valderrama Aparicio. Cursos académicos 2017/18 — 2019/20. Grupo HUM-958, Aula Taller C.</li>
-                  <li>Propuesto por Miguel Ángel de la Cova Morillo-Velarde. Curso académico 2020/21. Grupo HUM-632, Aula Taller F.</li>
-                </ul>
-              </div>
-            </article>
-          </div>
-        </section>
+          <section class="cv-row" id="meritos-mas-relevantes">
+            <h2>méritos más relevantes</h2>
+            <div class="cv-content">
+              <article class="cv-item">
+                <div class="cv-date">2025 — actualidad</div>
+                <div>
+                  <span class="cv-title">Miembro del grupo de investigación HUM-632</span>
+                  <span class="cv-note">Proyecto, Progreso, Arquitectura.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2025 — 2026</div>
+                <div>
+                  <span class="cv-title">Colaborador docente externo</span>
+                  <span class="cv-note">Departamento de Proyectos Arquitectónicos, ETSAS.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2024 — 2025</div>
+                <div>
+                  <span class="cv-title">Personal científico-técnico en la Universidad de Sevilla</span>
+                  <span class="cv-note">Colaboración en el proyecto de investigación Ref. US.22-11 SIFACI.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2022 — 2024</div>
+                <div>
+                  <span class="cv-title">Asistente honorario</span>
+                  <span class="cv-note">Adscripción al Departamento de Proyectos Arquitectónicos, ETSAS.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2021 — 2022</div>
+                <div>
+                  <span class="cv-title">Labores de apoyo a la organización de la docencia</span>
+                  <span class="cv-note">Apoyo en las asignaturas Arquitectura y Patrimonio, Proyectos 9 y Proyectos 10. Dirigido por Miguel Ángel de la Cova Morillo-Velarde.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2019</div>
+                <div>
+                  <span class="cv-title">Colaborador en proyecto de investigación</span>
+                  <span class="cv-note">Arquitectura, Proyecto y Sostenibilidad. Laboratorios de estudio en el litoral mediterráneo. Dirigido por Luz Fernández-Valderrama Aparicio.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2018</div>
+                <div>
+                  <span class="cv-title">Apoyo en la edición del Atlas Potencial de Terapias Urbanas</span>
+                  <span class="cv-note">Publicación enmarcada en el proyecto EUObs: Ecobarrios versus rehabilitación de barriadas. Proyecto de mejora de barriadas obsoletas en términos de sostenibilidad.</span>
+                </div>
+              </article>
+              <article class="cv-item">
+                <div class="cv-date">2017 — 2021</div>
+                <div>
+                  <span class="cv-title">Alumno interno adscrito al Departamento de Proyectos Arquitectónicos, ETSAS</span>
+                  <span class="cv-note">Propuesto por Luz Fernández-Valderrama Aparicio, cursos académicos 2017/18 — 2019/20, grupo HUM-958, Aula Taller C. Propuesto por Miguel Ángel de la Cova Morillo-Velarde, curso académico 2020/21, grupo HUM-632, Aula Taller F.</span>
+                </div>
+              </article>
+            </div>
+          </section>
       </div>
     </div>
   </main>
@@ -434,6 +418,5 @@
       }
     });
   </script>
-
 </body>
 </html>
