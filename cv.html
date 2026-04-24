@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CV — José Manuel Atero</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-
   <style>
     :root {
       --ink:   #111111;
@@ -17,75 +15,116 @@
       --nav-h: clamp(52px, 8vh, 72px);
       --ease:  cubic-bezier(0.22, 1, 0.36, 1);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; width: 100%; background: var(--paper); color: var(--ink); }
 
-    html, body {
-      height: 100%;
-      width: 100%;
-      background: var(--paper);
-      color: var(--ink);
-    }
-
+    /* ── Header ── */
     header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 10;
       height: var(--nav-h);
-      display: flex;
-      align-items: center;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 0 clamp(20px, 4vw, 48px);
-      opacity: 0;
-      animation: fadeIn 0.8s var(--ease) 0.1s forwards;
+      opacity: 0; animation: fadeIn 0.8s var(--ease) 0.1s forwards;
     }
-
     .logo {
-      font-family: 'DM Mono', monospace;
-      font-weight: 400;
-      font-size: clamp(0.82rem, 1.5vw, 1.05rem);
-      letter-spacing: 0.18em;
-      text-transform: lowercase;
-      color: var(--ink);
-      text-decoration: none;
+      font-family: 'DM Mono', monospace; font-weight: 400;
+      font-size: clamp(0.82rem, 1.5vw, 1.05rem); letter-spacing: 0.18em;
+      text-transform: lowercase; color: var(--ink); text-decoration: none;
     }
 
+    /* ── Hamburger ── */
+    .burger {
+      display: flex; flex-direction: column; justify-content: center;
+      gap: 5px; width: 34px; height: 28px;
+      cursor: pointer; background: none; border: none; padding: 0;
+    }
+    .burger span {
+      display: block; width: 34px; height: 1px; background: var(--ink);
+      transition: transform 0.4s var(--ease), opacity 0.3s ease;
+      transform-origin: center;
+    }
+    body.menu-open .burger span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    body.menu-open .burger span:nth-child(2) { opacity: 0; }
+    body.menu-open .burger span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+    /* ── Menú lateral ── */
+    .menu-overlay {
+      position: fixed; top: 0; right: 0; z-index: 9;
+      width: clamp(220px, 28vw, 320px); height: 100%;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      display: flex; flex-direction: column; justify-content: flex-start;
+      padding: var(--nav-h) clamp(32px, 5vw, 60px) 0;
+      transform: translateX(100%); transition: transform 0.55s var(--ease);
+    }
+    body.menu-open .menu-overlay { transform: translateX(0); }
+    .menu-rule { width: 24px; height: 1px; background: var(--muted); margin-top: clamp(24px, 4vh, 40px); }
+    .menu-overlay nav { display: flex; flex-direction: column; gap: clamp(12px, 2vh, 20px); margin-top: clamp(24px, 4vh, 40px); }
+    .menu-overlay nav a {
+      font-family: 'DM Mono', monospace; font-weight: 400;
+      font-size: clamp(0.82rem, 1.5vw, 1.05rem); letter-spacing: 0.18em;
+      text-transform: lowercase; color: var(--ink); text-decoration: none;
+      width: fit-content;
+      background-image: linear-gradient(var(--ink), var(--ink));
+      background-size: 0% 1px; background-repeat: no-repeat; background-position: left bottom;
+      padding-bottom: 2px; transition: background-size 0.4s var(--ease);
+    }
+    .menu-overlay nav a:hover { background-size: 100% 1px; }
+
+    /* ── Contenido ── */
     main {
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      animation: fadeUp 0.9s var(--ease) 0.3s forwards;
+      height: 100%; display: flex; align-items: center; justify-content: center;
+      opacity: 0; animation: fadeUp 0.9s var(--ease) 0.3s forwards;
     }
-
     .page-label {
-      font-family: 'DM Mono', monospace;
-      font-weight: 300;
-      font-size: clamp(0.6rem, 1vw, 0.78rem);
-      letter-spacing: 0.22em;
-      text-transform: lowercase;
-      color: var(--muted);
+      font-family: 'DM Mono', monospace; font-weight: 300;
+      font-size: clamp(0.6rem, 1vw, 0.78rem); letter-spacing: 0.22em;
+      text-transform: lowercase; color: var(--muted);
     }
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(12px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
 
   <header>
-    <a href="index.html" class="logo" aria-label="Volver a la página principal">josemanuelatero</a>
+    <a href="index.html" class="logo">josemanuelatero</a>
+    <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-menu" onclick="toggleMenu(this)">
+      <span></span><span></span><span></span>
+    </button>
   </header>
+
+  <div class="menu-overlay" id="main-menu">
+    <div class="menu-rule"></div>
+    <nav>
+      <a href="cv.html">cv</a>
+      <a href="carpeta.html">carpeta</a>
+    </nav>
+  </div>
 
   <main>
     <span class="page-label">cv</span>
   </main>
+
+  <script>
+    function toggleMenu(btn) {
+      const open = document.body.classList.toggle('menu-open');
+      btn.setAttribute('aria-expanded', open);
+    }
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && document.body.classList.contains('menu-open')) {
+        document.body.classList.remove('menu-open');
+        document.querySelector('.burger').setAttribute('aria-expanded', 'false');
+      }
+    });
+    document.addEventListener('click', e => {
+      if (document.body.classList.contains('menu-open') && !e.target.closest('.menu-overlay') && !e.target.closest('.burger')) {
+        document.body.classList.remove('menu-open');
+        document.querySelector('.burger').setAttribute('aria-expanded', 'false');
+      }
+    });
+  </script>
 
 </body>
 </html>
