@@ -3,21 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Carpeta - josemanuelatero</title>
+  <title>Carpeta — José Manuel Atero</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
+    :root {
+      --ink:   #111111;
+      --paper: #ffffff;
+      --muted: rgba(17,17,17,0.4);
+      --nav-h: clamp(52px, 8vh, 72px);
+      --ease:  cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background: var(--paper);
+      color: var(--ink);
+    }
+
+    /* ── Header ─────────────────────────────────────────── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
       display: flex;
-      justify-content: center;
       align-items: center;
-      font-family: Arial, sans-serif;
-      background: white;
-      color: black;
+      padding: 0 clamp(20px, 4vw, 48px);
+      opacity: 0;
+      animation: fadeIn 0.8s var(--ease) 0.1s forwards;
+    }
+
+    .logo {
+      font-family: 'DM Mono', monospace;
+      font-weight: 400;
+      font-size: clamp(0.82rem, 1.5vw, 1.05rem);
+      letter-spacing: 0.18em;
+      text-transform: lowercase;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    /* ── Contenido ───────────────────────────────────────── */
+    main {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(16px, 3vh, 28px);
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease) 0.3s forwards;
+    }
+
+    .empty-label {
+      font-family: 'DM Mono', monospace;
+      font-weight: 300;
+      font-size: clamp(0.6rem, 1vw, 0.78rem);
+      letter-spacing: 0.22em;
+      text-transform: lowercase;
+      color: var(--muted);
+    }
+
+    /* ── Animaciones ─────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <h1>Carpeta vacía</h1>
+
+  <header>
+    <a href="index.html" class="logo" aria-label="Volver a la página principal">josemanuelatero</a>
+  </header>
+
+  <main>
+    <span class="empty-label">carpeta vacía</span>
+  </main>
+
 </body>
 </html>
