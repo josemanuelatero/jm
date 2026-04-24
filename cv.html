@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CV — José Manuel Atero</title>
-  <meta name="description" content="Curriculum vitae esquemático de José Manuel Atero Calado, arquitecto, doctorando en Arquitectura, operador de UAS y piloto remoto.">
+  <meta name="description" content="Curriculum vitae esquemático de José Manuel Atero Calado, arquitecto y doctorando en Arquitectura.">
   <meta name="author" content="José Manuel Atero Calado">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,29 +33,9 @@
       backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
     }
     .logo {
-      font-family: 'DM Mono', monospace;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.18rem;
-      line-height: 1;
-    }
-    .logo-main {
-      display: block;
-      font-weight: 400;
-      font-size: clamp(0.82rem, 1.5vw, 1.05rem);
-      letter-spacing: 0.18em;
-      text-transform: lowercase;
-      color: var(--ink);
-    }
-    .logo-sub {
-      display: block;
-      font-weight: 300;
-      font-size: clamp(0.52rem, 0.82vw, 0.66rem);
-      letter-spacing: 0.16em;
-      text-transform: lowercase;
-      color: var(--muted);
+      font-family: 'DM Mono', monospace; font-weight: 400;
+      font-size: clamp(0.82rem, 1.5vw, 1.05rem); letter-spacing: 0.18em;
+      text-transform: lowercase; color: var(--ink); text-decoration: none;
     }
 
     /* ── Hamburger ── */
@@ -211,7 +191,7 @@
 <body>
 
   <header>
-    <a href="index.html" class="logo" aria-label="José Manuel Atero — arquitecto"><span class="logo-main">josemanuelatero</span><span class="logo-sub">arquitecto</span></a>
+    <a href="index.html" class="logo">josemanuelatero</a>
     <button class="burger" aria-label="Abrir menú" aria-expanded="false" aria-controls="main-menu" onclick="toggleMenu(this)">
       <span></span><span></span><span></span>
     </button>
@@ -340,13 +320,6 @@
             <article class="cv-item">
               <div class="cv-date">2025</div>
               <div>
-                <span class="cv-title">Operador de UAS y piloto remoto</span>
-                <span class="cv-note">Formación para operaciones con sistemas de aeronaves no tripuladas aplicadas a documentación gráfica, levantamiento arquitectónico y análisis territorial.</span>
-              </div>
-            </article>
-            <article class="cv-item">
-              <div class="cv-date">2025</div>
-              <div>
                 <span class="cv-title">Curso Experto Revit Arquitectura — Oficial Autodesk</span>
                 <span class="cv-note">Formación BIM orientada al uso profesional de Autodesk Revit.</span>
               </div>
@@ -356,6 +329,13 @@
               <div>
                 <span class="cv-title">BIMa-1.1 Revit. Proyecto Básico</span>
                 <span class="cv-note">Curso impartido por la Fundación FIDAS.</span>
+              </div>
+            </article>
+            <article class="cv-item">
+              <div class="cv-date">—</div>
+              <div>
+                <span class="cv-title">BIM I / BIM II</span>
+                <span class="cv-note">Formación oficial en Revit Autodesk.</span>
               </div>
             </article>
           </div>
